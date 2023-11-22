@@ -1,0 +1,68 @@
+2023/11/22 15:42:37 Server 2: Failed to listen on port 5400: listen tcp 127.0.0.1:5400: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2023/11/22 15:42:37 Server 2: is trying to create listener on port 5401
+2023/11/22 15:42:37 Server 2: Listening on port 5400
+2023/11/22 15:42:37 Server 3: is trying to create listener on port 5400
+2023/11/22 15:42:37 Server 3: Failed to listen on port 5400: listen tcp 127.0.0.1:5400: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2023/11/22 15:42:37 Server 3: is trying to create listener on port 5401
+2023/11/22 15:42:37 Server 3: Failed to listen on port 5400: listen tcp 127.0.0.1:5401: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2023/11/22 15:42:37 Server 3: is trying to create listener on port 5402
+2023/11/22 15:42:37 Server 3: Listening on port 5400
+2023/11/22 15:43:01 client 3: Attempts to dial on port 5400
+2023/11/22 15:43:01 client 3: Is dialed on port 5400
+2023/11/22 15:43:01 client 3: Attempts to dial on port 5401
+2023/11/22 15:43:01 client 3: Is dialed on port 5401
+2023/11/22 15:43:01 client 3: Attempts to dial on port 5402
+2023/11/22 15:43:01 client 3: Is dialed on port 5402
+2023/11/22 15:43:01 client 3: Attempts to dial on port 5403
+2023/11/22 15:43:01 client 2: Attempts to dial on port 5400
+2023/11/22 15:43:01 client 2: Is dialed on port 5400
+2023/11/22 15:43:01 client 2: Attempts to dial on port 5401
+2023/11/22 15:43:01 client 2: Is dialed on port 5401
+2023/11/22 15:43:01 client 2: Attempts to dial on port 5402
+2023/11/22 15:43:01 client 2: Is dialed on port 5402
+2023/11/22 15:43:01 client 2: Attempts to dial on port 5403
+2023/11/22 15:43:02 client 1: Attempts to dial on port 5400
+2023/11/22 15:43:02 client 1: Is dialed on port 5400
+2023/11/22 15:43:02 client 1: Attempts to dial on port 5401
+2023/11/22 15:43:02 client 1: Is dialed on port 5401
+2023/11/22 15:43:02 client 1: Attempts to dial on port 5402
+2023/11/22 15:43:02 client 1: Is dialed on port 5402
+2023/11/22 15:43:02 client 1: Attempts to dial on port 5403
+2023/11/22 15:43:02 Fail to Dial : context deadline exceeded
+2023/11/22 15:43:02 client 3: Attempts to dial on port 5404
+2023/11/22 15:43:02 Fail to Dial : context deadline exceeded
+2023/11/22 15:43:02 Fail to Dial : context deadline exceeded
+2023/11/22 15:43:02 client 2: Attempts to dial on port 5404
+2023/11/22 15:43:02 Fail to Dial : context deadline exceeded
+2023/11/22 15:43:03 Fail to Dial : context deadline exceeded
+2023/11/22 15:43:03 client 1: Attempts to dial on port 5404
+2023/11/22 15:43:03 Fail to Dial : context deadline exceeded
+2023/11/22 15:43:07 Server 1: 1 has the highest bid of 10
+2023/11/22 15:43:07 Client 1: Bid was successful
+2023/11/22 15:43:07 Server 2: 1 has the highest bid of 10
+2023/11/22 15:43:07 Client 1: Bid was successful
+2023/11/22 15:43:07 Server 3: 1 has the highest bid of 10
+2023/11/22 15:43:07 Client 1: Bid was successful
+2023/11/22 15:43:10 Client 2 asked for the highest bid, which is 10
+2023/11/22 15:43:15 Server 1: 2 has the highest bid of 20
+2023/11/22 15:43:15 Client 2: Bid was successful
+2023/11/22 15:43:15 Server 2: 2 has the highest bid of 20
+2023/11/22 15:43:15 Client 2: Bid was successful
+2023/11/22 15:43:15 Server 3: 2 has the highest bid of 20
+2023/11/22 15:43:15 Client 2: Bid was successful
+2023/11/22 15:43:19 Server 1: 3 has the highest bid of 25
+2023/11/22 15:43:19 Client 3: Bid was successful
+2023/11/22 15:43:19 Server 2: 3 has the highest bid of 25
+2023/11/22 15:43:19 Client 3: Bid was successful
+2023/11/22 15:43:19 Server 3: 3 has the highest bid of 25
+2023/11/22 15:43:19 Client 3: Bid was successful
+2023/11/22 15:43:23 Client 3 asked for the highest bid, which is 25
+2023/11/22 15:43:25 Client 2: Bid failed, because amount was lower than current highest bid
+2023/11/22 15:43:25 Client 2: Bid failed, because amount was lower than current highest bid
+2023/11/22 15:43:25 Client 2: Bid failed, because amount was lower than current highest bid
+2023/11/22 15:43:34 Client 2 asked for the highest bid, which is 25
+2023/11/22 15:43:38 The auction is not ongoing, why are you still bidding???
+2023/11/22 15:43:38 The auction is not ongoing, why are you still bidding???
+2023/11/22 15:43:49 EOF
+2023/11/22 15:43:50 EOF
+2023/11/22 15:43:51 EOF

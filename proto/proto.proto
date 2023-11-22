@@ -11,12 +11,13 @@ service AuctionSystem{
 
 message Amount {
     string bidderName = 1;
-    int32 amount = 2;
+    int64 amount = 2;
 }
 
 message Outcome {
     bool status = 1;
-    int32 highestBid = 2; 
+    int64 highestBid = 2; 
+    string highestBidder = 3;
 }
 
 message Ack {
