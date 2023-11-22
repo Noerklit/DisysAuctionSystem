@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "github.com/Noerklit/DisysAuctionSystem/proto";
+
+package proto;
+
+service AuctionSystem{
+    rpc Bid (Amount) returns (Ack) {}
+    rpc Result (Void) returns (Outcome) {}
+}
+
+message Amount {
+    string biddersName = 1;
+    int64 amount = 2;
+}
+
+message Outcome {
+    bool status = 1;
+    int64 highestBid = 2; 
+}
+
+message Ack {
+    string ack = 1;
+}
+
+message Void {
+}
