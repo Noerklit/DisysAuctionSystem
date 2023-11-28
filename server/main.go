@@ -45,8 +45,8 @@ func main() {
 	//connect to log file
 	f, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalf("error opening file: %v\n", err)
-		fmt.Printf("error opening file: %v\n", err)
+		log.Printf("error opening file: %v\n", err)
+		return
 	}
 	defer f.Close()
 	log.SetOutput(f)
@@ -92,8 +92,9 @@ func launchServer(ports []string) {
 		if len(ports) > 1 {
 			launchServer(ports[1:])
 		} else {
-			log.Fatalf("Server %s: Failed to find open port\n", *serverName)
+			log.Printf("Server %s: Failed to find open port\n", *serverName)
 			fmt.Printf("Server %s: Failed to find open port\n", *serverName)
+			return
 		}
 	} else {
 		log.Printf("Server %s: Listening on port %s\n", *serverName, ports[0])
@@ -106,8 +107,9 @@ func launchServer(ports []string) {
 	gRPC.RegisterAuctionSystemServer(grpcServer, server)
 
 	if err := grpcServer.Serve(list); err != nil {
-		log.Fatalf("failed to server %v\n", err)
+		log.Printf("failed to server %v\n", err)
 		fmt.Printf("failed to server %v\n", err)
+		return
 	}
 }
 

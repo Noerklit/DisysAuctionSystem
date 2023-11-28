@@ -30,8 +30,8 @@ func main() {
 	// Connect to log file
 	f, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalf("error opening file: %v\n", err)
-		fmt.Printf("error opening file: %v\n", err)
+		log.Printf("error opening file: %v\n", err)
+		return
 	}
 	defer f.Close()
 	log.SetOutput(f)
@@ -54,16 +54,15 @@ func joinServer() {
 	//connect to server
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithBlock(), grpc.WithInsecure())
-	timeContext, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
 	for _, port := range _ports {
-		log.Printf("client %s: Attempts to dial on port %s\n", *nameOfBidder, port)
+		timeContext, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
 		conn, err := grpc.DialContext(timeContext, fmt.Sprintf(":%s", port), opts...)
 		if err != nil {
-			log.Printf("Fail to Dial : %v\n", err)
-			fmt.Printf("Fail to Dial : %v\n", err)
+			log.Printf("Client failed to dial on port %s: %v\n", port, err)
+			fmt.Printf("Client failed to dial on port %s: %v\n", port, err)
+			continue
 		}
-		log.Printf("client %s: Is dialed on port %s\n", *nameOfBidder, port)
 		var s = gRPC.NewAuctionSystemClient(conn)
 		servers = append(servers, s)
 		ServerConn[s] = conn
@@ -72,41 +71,38 @@ func joinServer() {
 }
 
 func bid(amount string) {
-	for {
-		bidAmount, err := strconv.ParseInt(amount, 10, 64)
-		if err != nil {
-			log.Fatal(err)
-		}
+	bidAmount, err := strconv.ParseInt(amount, 10, 64)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
-		amount := &gRPC.Amount{
-			Amount:     bidAmount,
-			BidderName: *nameOfBidder,
-		}
+	amountOfBid := &gRPC.Amount{
+		Amount:     bidAmount,
+		BidderName: *nameOfBidder,
+	}
 
-		for _, s := range servers {
-			if conReady(s) {
-				ack, err := s.Bid(ctx, amount)
-				if err != nil {
-					log.Printf("Client %s: Bid failed, because of a lack of server response\n", *nameOfBidder)
-					fmt.Printf("Client %s: Bid failed, because of a lack of server response\n", *nameOfBidder)
-					log.Println(err)
-				}
-				switch ack.Message {
-				case "Fail":
-					fmt.Printf("Client %s: Bid failed, because amount was lower than current highest bid\n", *nameOfBidder)
-					log.Printf("Client %s: Bid failed, because amount was lower than current highest bid\n", *nameOfBidder)
-				case "Success":
-					fmt.Printf("Client %s: Bid was successful\n", *nameOfBidder)
-					log.Printf("Client %s: Bid was successful\n", *nameOfBidder)
-				default:
-					fmt.Printf(ack.Message + "\n")
-					log.Printf(ack.Message + "\n")
-
-				}
+	for _, s := range servers {
+		if conReady(s) {
+			ack, err := s.Bid(ctx, amountOfBid)
+			if err != nil {
+				log.Printf("Client %s: Bid failed, because of a lack of server response\n", *nameOfBidder)
+				fmt.Printf("Client %s: Bid failed, because of a lack of server response\n", *nameOfBidder)
+				log.Println(err)
 			}
+			switch ack.Message {
+			case "Fail":
+				fmt.Printf("Client %s: Bid failed, because amount was lower than current highest bid\n", *nameOfBidder)
+				log.Printf("Client %s: Bid failed, because amount was lower than current highest bid\n", *nameOfBidder)
+			case "Success":
+				fmt.Printf("Client %s: Bid was successful\n", *nameOfBidder)
+			default:
+				fmt.Printf(ack.Message + "\n")
+				log.Printf(ack.Message + "\n")
 
+			}
 		}
-		parseInput()
+
 	}
 }
 
@@ -137,7 +133,9 @@ func parseInput() {
 		fmt.Printf("-> ")
 		in, err := reader.ReadString('\n')
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			fmt.Printf("Please enter a valid number\n")
+			return
 		}
 		in = strings.TrimSpace(in)
 		if in == "status" {
